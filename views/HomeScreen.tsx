@@ -51,7 +51,9 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
               title={
                 <View style={styles.cardHeader}>
                   <Text style={{color: '#FFFF'}}>
-                    {moment(item.products[0].createdAt).fromNow()}
+                    {item.products.length != 0
+                      ? moment(item.products[0].createdAt).fromNow()
+                      : ''}
                   </Text>
                   <View
                     style={{
@@ -74,7 +76,8 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
                           alignItems: 'center',
                         }}>
                         <Text style={styles.marketSubTitle}>
-                          {item.products[0].description}
+                          {item.products.length != 0 &&
+                            item.products[0].description}
                         </Text>
                       </View>
                     </View>

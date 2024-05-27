@@ -24,9 +24,9 @@ const MainScreen = ({navigation}: {navigation: any}) => {
         <TouchableOpacity style={styles.mainButton} onPress={handleLogin}>
           <Text style={styles.buttonText}>تسجيل الدخول</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.RegisterButton} onPress={handleRegister}>
+        {/* <TouchableOpacity style={styles.RegisterButton} onPress={handleRegister}>
           <Text style={styles.buttonText}>إنشأ حساب جديد</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View>
   );

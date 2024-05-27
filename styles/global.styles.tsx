@@ -8,7 +8,8 @@ const GlobalStyles = StyleSheet.create({
     backgroundColor: '#0D1A27',
     padding: 2,
     justifyContent: 'flex-start',
-    alignItems:"center"
+    alignItems: 'center',
+    minHeight: 500,
   },
 });
 export default GlobalStyles;

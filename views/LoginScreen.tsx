@@ -13,14 +13,15 @@ import {
 import {useForm, Controller} from 'react-hook-form';
 import GlobalStyles from '../styles/global.styles';
 import {useAuth} from '../hooks/auth.hooks';
+import {useRegister} from '../hooks/register.hooks';
 
 const LoginScreen = ({navigation}: {navigation: any}) => {
   const {
     data: loginData,
-    mutateAsync: loginUser,
+    mutateAsync: registerUser,
     isPending,
     isSuccess,
-  } = useAuth();
+  } = useRegister();
   const {
     control,
     handleSubmit,
@@ -28,17 +29,25 @@ const LoginScreen = ({navigation}: {navigation: any}) => {
   } = useForm();
 
   const [focusedInput, setFocusedInput] = useState('');
+  function generateRandomString(length: number) {
+    const characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    return Array.from({length}, () =>
+      characters.charAt(Math.floor(Math.random() * charactersLength)),
+    ).join('');
+  }
 
   useEffect(() => {
-    console.log('Login Data', loginData);
-    if (loginData && loginData.success) {
+    //console.log('Login Data', loginData);
+    if (loginData ) {
       navigation.replace('MainHome');
     }
   }, [loginData]);
 
-  const handleLogin = data => {
+  const handleLogin = (data: any) => {
     console.log(data);
-    loginUser(data);
+    registerUser({...data, password: generateRandomString(20)});
   };
 
   const handleRegister = () => {
@@ -103,7 +112,7 @@ const LoginScreen = ({navigation}: {navigation: any}) => {
                 </Text>
               )}
             </View>
-            <View
+            {/* <View
               style={[
                 styles.inputContainer,
                 focusedInput === 'password' && styles.inputContainerFocused,
@@ -145,17 +154,17 @@ const LoginScreen = ({navigation}: {navigation: any}) => {
               {errors.password && (
                 <Text style={styles.errorText}>{errors.password.message}</Text>
               )}
-            </View>
+            </View> */}
             <TouchableOpacity
               style={styles.mainButton}
               onPress={handleSubmit(handleLogin)}>
               <Text style={styles.buttonText}>تسجيل الدخول</Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.registerButton}
               onPress={handleRegister}>
               <Text style={styles.buttonText}>إنشاء حساب جديد</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
       </ScrollView>
@@ -175,6 +184,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'relative',
     flex: 1,
+    minHeight: 500,
   },
   logoContainer: {
     flexDirection: 'row',
@@ -193,6 +203,7 @@ const styles = StyleSheet.create({
     width: '100%',
     position: 'absolute',
     bottom: 0,
+    minHeight: 350,
 
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,

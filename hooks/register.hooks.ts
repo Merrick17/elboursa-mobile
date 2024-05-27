@@ -10,11 +10,13 @@ type LoginData = {
 
 export const useRegister = () => {
   return useMutation({
-    mutationFn: (loginInfo: LoginData) =>
-      post(API_LOGIN_ENDPOINT, {...loginInfo, isAdmin: false}),
+    mutationFn: (loginInfo: LoginData) => {
+      storeData('phoneNumber', loginInfo.phoneNumber);
+      return post(API_LOGIN_ENDPOINT, {...loginInfo, isAdmin: false});
+    },
     onSuccess: data => {
-      if (data.success) {
-        storeData(data.token, 'access-token');
+      if (data) {
+        //storeData(data.token, 'access-token');
         //navigation.replace('/MainHome');
         // router.replace('/dashboard');
         // setAuthToken(data.token);
